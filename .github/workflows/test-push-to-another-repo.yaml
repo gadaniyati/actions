@@ -18,6 +18,6 @@ jobs:
           echo "Another test file" > test-dir/content.txt
 
       - name: file as source input
-        uses: ./
+        uses: ./push-to-another-repo
         with:
           source: test-dir/date.txt
