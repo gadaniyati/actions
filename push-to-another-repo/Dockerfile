@@ -1,7 +1,7 @@
 # Container image that runs your code
-FROM alpine:3.10
+FROM alpine:latest
 
-RUN apk update && apk add git=2.43.0
+RUN apk update && apk add git
 
 # Copies script file from action repository to the container filesystem path `/`
 COPY push-to-another-repo.sh /push-to-another-repo.sh
