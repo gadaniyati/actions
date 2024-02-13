@@ -14,7 +14,7 @@ git --version
 echo "> Setting Git configuration"
 git config --global user.name "${INPUT_USER_NAME}"
 git config --global user.email "${INPUT_USER_EMAIL}"
-git lfs install
+# git lfs install
 
 # Setup directories
 echo "> Setup directories"
