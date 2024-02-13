@@ -1,0 +1,23 @@
+name: Run tests for pust-to-another-repo action
+
+on: 
+  push:
+
+jobs:
+  run-tests:
+    name: Run tests for pust-to-another-repo action
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup test files and directory
+        run: |
+          mkdir -p test-dir
+          echo $(date) > test-dir/date.txt
+          echo "Another test file" > test-dir/content.txt
+
+      - name: file as source input
+        uses: ./
+        with:
+          source: test-dir/date.txt

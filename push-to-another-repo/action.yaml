@@ -1,0 +1,11 @@
+name: 'Push to another repo'
+description: "Push file/directory to another repository using API Token"
+inputs:
+  source:
+    description: File or directory to be pushed
+    required: true
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.source }}
