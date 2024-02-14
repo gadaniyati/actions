@@ -46,7 +46,53 @@ jobs:
           destination_branch: test-destination-directory
           access_key: ${{ secrets.ACCESS_KEY }}
 
+      - name: test for nested destination directory as output directory
+        uses: ./push-to-another-repo
+        with:
+          source: test-dir
+          destination_repo_name: gadaniyati/actions
+          destination_directory: pushed-changes/level-1
+          destination_branch: test-nested-destination-directory
+          access_key: ${{ secrets.ACCESS_KEY }}
+
+      - name: test for delete content of destination directory
+        uses: ./push-to-another-repo
+        with:
+          source: test-dir
+          destination_repo_name: gadaniyati/actions
+          destination_branch: test-delete-destination-content
+          delete-destination-content: true
+          access_key: ${{ secrets.ACCESS_KEY }}
+
+      - name: test for different username and email
+        uses: ./push-to-another-repo
+        with:
+          source: test-dir
+          destination_repo_name: gadaniyati/actions
+          destination_branch: test-username-email
+          user_name: galaumang
+          user_email: toumangg@gmail.com
+          access_key: ${{ secrets.ACCESS_KEY }}
+
+      - name: test for different username
+        uses: ./push-to-another-repo
+        with:
+          source: test-dir
+          destination_repo_name: gadaniyati/actions
+          destination_branch: test-username
+          user_name: galaumang
+          access_key: ${{ secrets.ACCESS_KEY }}
+
       - name: test for custom commit message
+        uses: ./push-to-another-repo
+        with:
+          source: test-dir/content.txt
+          destination_repo_name: gadaniyati/actions
+          destination_branch: test-commit-message
+          commit_message: custom commit message for content push (${{ github.sha }})
+          access_key: ${{ secrets.ACCESS_KEY }}
+
+      - name: test for no changes / nothing to commit
         uses: ./push-to-another-repo
         with:
           source: test-dir/content.txt

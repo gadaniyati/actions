@@ -25,7 +25,7 @@ inputs:
   commit_message:
     description: Commit message for changes to be pushed in destination repository
     required: false
-    default: "${{ github.job }} from https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+    default: "${{ github.job }} job pushed changes from ${{ github.sha }}"
   user_name:
     description: User name for commit author
     required: false
