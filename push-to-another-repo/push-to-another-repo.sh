@@ -58,7 +58,7 @@ git config --global --add safe.directory "$DEST_CLONE_DIR"
 
 echo "> Git commands to commit and push to another repository"
 git add .
-git commit -m "${INPUT_COMMIT_MESSAGE}"
+git commit -m "${INPUT_COMMIT_MESSAGE}" || echo
 git push -u origin ${INPUT_DESTINATION_BRANCH}
 
 # Output the commit hash
