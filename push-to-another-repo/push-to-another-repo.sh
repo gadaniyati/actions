@@ -38,7 +38,7 @@ git checkout ${INPUT_DESTINATION_BRANCH} || git checkout -b ${INPUT_DESTINATION_
 git status
 
 # Ensure destination directory exist, and remove files if needed
-echo ">Ensure destination directory exist, and remove files if needed"
+echo "> Ensure destination directory exist, and remove files if needed"
 mkdir -p ${INPUT_DESTINATION_DIRECTORY}
 if [ "${INPUT_DELETE_DESTINATION_CONTENT}" = "true" ]; then
     git rm -rf ./${INPUT_DESTINATION_DIRECTORY}/*
@@ -56,12 +56,12 @@ git status
 echo "> Setting Git configuration - add safe.directory"
 git config --global --add safe.directory "$DEST_CLONE_DIR"
 
-echo "> Git actions to commit and push to another repository"
+echo "> Git commands to commit and push to another repository"
 git add .
 git commit -m "${INPUT_COMMIT_MESSAGE}"
 git push -u origin ${INPUT_DESTINATION_BRANCH}
 
 # Output the commit hash
-echo "::set-output name=commit_hash::$(git rev-parse HEAD)"
+echo "COMMIT_HASH=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
 echo "> Completed - Push to another repository script"

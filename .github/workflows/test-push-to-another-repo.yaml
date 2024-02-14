@@ -1,7 +1,7 @@
 name: Run tests for pust-to-another-repo action
 
 on: 
-  push:
+  workflow_dispatch:
 
 jobs:
   run-tests:
@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup test files and directory
         run: |
@@ -17,10 +17,40 @@ jobs:
           echo $(date) > test-dir/date.txt
           echo "Another test file" > test-dir/content.txt
 
-      - name: file as source input
+      - name: test for file as source input
+        id: test-file-source
         uses: ./push-to-another-repo
         with:
           source: test-dir/date.txt
           destination_repo_name: gadaniyati/actions
           destination_branch: test-file
+          access_key: ${{ secrets.ACCESS_KEY }}
+      
+      - name: test for output parameter commit hash
+        run: echo "The SHA hash of the generated commit - ${{ steps.test-file-source.outputs.commit-hash }}"
+
+      - name: test for directory as source input
+        uses: ./push-to-another-repo
+        with:
+          source: test-dir
+          destination_repo_name: gadaniyati/actions
+          destination_branch: test-directory
+          access_key: ${{ secrets.ACCESS_KEY }}
+
+      - name: test for destination directory as output directory
+        uses: ./push-to-another-repo
+        with:
+          source: test-dir
+          destination_repo_name: gadaniyati/actions
+          destination_directory: pushed-changes
+          destination_branch: test-destination-directory
+          access_key: ${{ secrets.ACCESS_KEY }}
+
+      - name: test for custom commit message
+        uses: ./push-to-another-repo
+        with:
+          source: test-dir/content.txt
+          destination_repo_name: gadaniyati/actions
+          destination_branch: test-commit-message
+          commit_message: custom commit message for content push (${{ github.sha }})
           access_key: ${{ secrets.ACCESS_KEY }}

@@ -21,7 +21,7 @@ inputs:
   delete_destination_content:
     description: Delete destination directory contents before push?
     required: false
-    default: false
+    default: "false"
   commit_message:
     description: Commit message for changes to be pushed in destination repository
     required: false
@@ -33,7 +33,7 @@ inputs:
   user_email:
     description: User email for commit author
     required: false
-    default: ${{ github.actor }}
+    default: "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
   server:
     description: Host server of the destination repository
     required: false
